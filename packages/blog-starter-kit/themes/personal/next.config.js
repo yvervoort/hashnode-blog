@@ -43,17 +43,7 @@ const getRedirectionRules = async () => {
   		return [];
 	}
 
-	const getRedirectionRules = async () => {
-	if (!host) return [];
-
-		try {
-			// existing query + request
-		} catch (e) {
-			console.warn('Failed to fetch redirects, skipping.', e);
-			return [];
-		}
-	};
-
+	const redirectionRules = data.publication.redirectionRules;
 
 	// convert to next.js redirects format
 	const redirects = redirectionRules
