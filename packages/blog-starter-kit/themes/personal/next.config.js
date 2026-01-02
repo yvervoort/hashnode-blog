@@ -66,6 +66,7 @@ const getRedirectionRules = async () => {
  * @type {import('next').NextConfig}
  */
 const config = {
+	output: 'standalone',
 	transpilePackages: ['@starter-kit/utils'],
 	basePath: getBasePath(),
 	experimental: {

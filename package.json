@@ -8,8 +8,8 @@
 	"scripts": {
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",
 		"preinstall": "npx only-allow pnpm",
-		"build": "pnpm -C packages/blog-starter-kit/themes/personal install --frozen-lockfile && pnpm -C packages/blog-starter-kit/themes/personal build",
-    	"start": "pnpm -C packages/blog-starter-kit/themes/personal start"
+    	"build": "pnpm -C packages/blog-starter-kit/themes/personal install --frozen-lockfile && pnpm -C packages/blog-starter-kit/themes/personal build && rm -rf .next && cp -R packages/blog-starter-kit/themes/personal/.next .next",
+		"start": "pnpm -C packages/blog-starter-kit/themes/personal start"
 	},
 	"dependencies": {
 		"classnames": "^2.3.1",
