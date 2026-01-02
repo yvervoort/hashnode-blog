@@ -32,5 +32,5 @@ env:
   - variable: NEXT_PUBLIC_MODE
     value: production
 
-  - variable: NEXT_PUBLIC_BASE_URL
-    value: /blog
+  # - variable: NEXT_PUBLIC_BASE_URL
+  # value: /blog
