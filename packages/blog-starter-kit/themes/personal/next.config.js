@@ -4,7 +4,8 @@ const ANALYTICS_BASE_URL = 'https://hn-ping2.hashnode.com';
 const HASHNODE_ADVANCED_ANALYTICS_URL = 'https://user-analytics.hashnode.com';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
+const GQL_ENDPOINT =
+  process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT || 'https://gql.hashnode.com';
 const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
 console.log(
@@ -37,11 +38,22 @@ const getRedirectionRules = async () => {
 
 	const data = await request(GQL_ENDPOINT, query);
 
-	if (!data.publication) {
-		throw 'Please ensure you have set the env var NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST correctly.';
+	if (!data?.publication) {
+  		console.warn('No publication found for host:', host, 'Skipping redirects.');
+  		return [];
 	}
 
-	const redirectionRules = data.publication.redirectionRules;
+	const getRedirectionRules = async () => {
+	if (!host) return [];
+
+		try {
+			// existing query + request
+		} catch (e) {
+			console.warn('Failed to fetch redirects, skipping.', e);
+			return [];
+		}
+	};
+
 
 	// convert to next.js redirects format
 	const redirects = redirectionRules
