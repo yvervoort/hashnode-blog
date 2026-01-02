@@ -27,7 +27,7 @@ env:
     value: https://gql.hashnode.com
 
   - variable: NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST
-    value: myblog-testing.hashnode.com
+    value: engineering.hashnode.dev
 
   - variable: NEXT_PUBLIC_MODE
     value: production
