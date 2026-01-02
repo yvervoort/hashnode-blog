@@ -7,6 +7,13 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const GQL_ENDPOINT = process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT;
 const host = process.env.NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST;
 
+console.log(
+  '[build env check] host=',
+  host,
+  'gql=',
+  process.env.NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT
+);
+
 const getBasePath = () => {
 	if (BASE_URL && BASE_URL.indexOf('/') !== -1) {
 		return BASE_URL.substring(BASE_URL.indexOf('/'));
