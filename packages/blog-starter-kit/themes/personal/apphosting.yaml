@@ -1,0 +1,9 @@
+env:
+  - variable: NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT
+    value: https://gql.hashnode.com
+
+  - variable: NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST
+    value: engineering.hashnode.com
+
+  - variable: NEXT_PUBLIC_MODE
+    value: production
