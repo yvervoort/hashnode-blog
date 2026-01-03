@@ -25,12 +25,15 @@ runConfig:
 env:
   - variable: NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT
     value: https://gql.hashnode.com
-
   - variable: NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST
     value: engineering.hashnode.dev
-
   - variable: NEXT_PUBLIC_MODE
     value: production
-
+  # Remove BASE_URL unless you really use /blog
   # - variable: NEXT_PUBLIC_BASE_URL
-  # value: /blog
+  #   value: /blog
+
+run:
+  command: node
+  args:
+    - .next/standalone/server.js

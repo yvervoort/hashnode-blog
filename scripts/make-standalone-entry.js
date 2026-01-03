@@ -39,5 +39,9 @@ if (!found) {
 const rel = "./" + path.relative(root, found).replace(/\\/g, "/");
 const content = `// generated wrapper\nrequire("${rel}");\n`;
 
-fs.writeFileSync(target, content, "utf8");
+process.env.PORT = process.env.PORT || "8080";
+process.env.HOSTNAME = process.env.HOSTNAME || "0.0.0.0";
+require("${rel}");
+`;
+
 console.log("Generated:", target, "->", rel);
