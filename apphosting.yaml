@@ -22,6 +22,11 @@ runConfig:
   # - variable: MY_SECRET
   #   secret: mySecretRef
 
+runConfig:
+  # optional, but can help during debugging
+  minInstances: 0
+  maxInstances: 10
+
 env:
   - variable: NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT
     value: https://gql.hashnode.com
@@ -29,11 +34,16 @@ env:
     value: engineering.hashnode.dev
   - variable: NEXT_PUBLIC_MODE
     value: production
-  # Remove BASE_URL unless you really use /blog
-  # - variable: NEXT_PUBLIC_BASE_URL
-  #   value: /blog
 
-run:
-  command: node
-  args:
-    - .next/standalone/server.js
+scripts:
+  runCommand: node .next/standalone/server.js
+  # buildCommand: npm run build  # only if needed
+
+outputFiles:
+  serverApp:
+    include:
+      - .next
+      - scripts
+      - package.json
+      - node_modules
+
