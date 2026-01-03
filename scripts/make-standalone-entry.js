@@ -1,61 +1,49 @@
+// scripts/make-standalone-entry.js
 const fs = require("fs");
 const path = require("path");
-
-const themeStandaloneRoot = path.resolve(
-  "packages/blog-starter-kit/themes/personal/.next/standalone"
-);
 
 const outRoot = path.resolve(".next/standalone");
 const target = path.join(outRoot, "server.js");
 
 function walk(dir) {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const ent of entries) {
+  for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, ent.name);
 
-    // Skip Next internal stuff if present
-    if (p.includes(`node_modules${path.sep}next${path.sep}dist`)) continue;
+    // Skip the wrapper we are generating
+    if (path.resolve(p) === path.resolve(target)) continue;
+
+    // Avoid accidentally picking Next internal files if present
+    if (p.includes(`${path.sep}node_modules${path.sep}next${path.sep}dist${path.sep}`)) continue;
 
     if (ent.isDirectory()) {
       const found = walk(p);
       if (found) return found;
     } else if (ent.isFile() && ent.name === "server.js") {
-      // Heuristic: prefer server.js that lives in an app folder (has .next beside it or above it)
-      const dirName = path.dirname(p);
-      const hasDotNextSibling = fs.existsSync(path.join(dirName, ".next"));
-      if (hasDotNextSibling) return p;
-
-      // Otherwise still allow it, but only if not in next/dist
       return p;
     }
   }
   return null;
 }
 
-if (!fs.existsSync(themeStandaloneRoot)) {
-  console.error("Missing theme standalone output:", themeStandaloneRoot);
+if (!fs.existsSync(outRoot)) {
+  console.error("Missing:", outRoot);
   process.exit(1);
 }
 
-fs.mkdirSync(outRoot, { recursive: true });
-
-const found = walk(themeStandaloneRoot);
+// If wrapper already exists, overwrite it (safe)
+const found = walk(outRoot);
 if (!found) {
-  console.error("No suitable server.js found under:", themeStandaloneRoot);
+  console.error("No server.js found anywhere under:", outRoot);
   process.exit(1);
 }
 
-// Make a wrapper that requires the *theme's* server.js from the repo-root output folder
-const rel = path
-  .relative(outRoot, found)
-  .split(path.sep)
-  .join("/");
+const rel = "./" + path.relative(outRoot, found).split(path.sep).join("/");
 
-const wrapper = `// generated wrapper for Cloud Run/Firebase
+const wrapper = `// generated wrapper for Firebase/Cloud Run
 process.env.PORT = process.env.PORT || "8080";
 process.env.HOSTNAME = process.env.HOSTNAME || "0.0.0.0";
-require("./${rel}");
+require("${rel}");
 `;
 
 fs.writeFileSync(target, wrapper, "utf8");
-console.log("Generated:", target, "->", found);
+console.log("Generated:", target, "->", rel);
