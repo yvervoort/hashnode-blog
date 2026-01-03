@@ -8,9 +8,9 @@
 	"scripts": {
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",
 		"preinstall": "npx only-allow pnpm",
-		"build": "pnpm -C packages/blog-starter-kit/themes/personal install --frozen-lockfile && pnpm -C packages/blog-starter-kit/themes/personal build && rm -rf .next && mkdir -p .next/standalone/.next && cp -R packages/blog-starter-kit/themes/personal/.next/standalone/* .next/standalone/ && cp -R packages/blog-starter-kit/themes/personal/.next/* .next/standalone/.next/ && cp -R packages/blog-starter-kit/themes/personal/.next/static .next/static && node scripts/make-standalone-entry.js",
-		"start": "node .next/standalone/server.js"
-
+		"build": "pnpm -C packages/blog-starter-kit/themes/personal install --frozen-lockfile && pnpm -C packages/blog-starter-kit/themes/personal build && rm -rf .next && mkdir -p .next/standalone && cp -R packages/blog-starter-kit/themes/personal/.next/standalone/* .next/standalone/ && cp -R packages/blog-starter-kit/themes/personal/.next/static .next/static && node scripts/make-standalone-entry.js",
+  		"start": "node .next/standalone/server.js",
+		"run:debug": "PORT=8080 node scripts/run-prod.js"
 	},
 	"dependencies": {
 		"classnames": "^2.3.1",

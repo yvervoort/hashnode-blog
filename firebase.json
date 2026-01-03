@@ -1,0 +1,13 @@
+{
+  "apphosting": {
+    "backendId": "hub-blog",
+    "rootDir": "packages/blog-starter-kit/themes/personal",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "functions"
+    ]
+  }
+}

@@ -26,46 +26,14 @@ runConfig:
 env:
   - variable: NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT
     value: https://gql.hashnode.com
-
   - variable: NEXT_PUBLIC_HASHNODE_PUBLICATION_HOST
     value: engineering.hashnode.dev
-
   - variable: NEXT_PUBLIC_MODE
     value: production
 
 scripts:
-  # IMPORTANT:
-  # We deliberately use sh -c so we can inspect the runtime filesystem
-  # BEFORE attempting to start Node.
-  runCommand: >
-    sh -c '
-      echo "=== RUNTIME DEBUG START ===";
-      echo "PWD=$(pwd)";
-      echo "PORT=$PORT";
-      echo "";
-      echo "--- ls (root) ---";
-      ls -la;
-      echo "";
-      echo "--- ls .next ---";
-      ls -la .next || true;
-      echo "";
-      echo "--- ls .next/standalone ---";
-      ls -la .next/standalone || true;
-      echo "";
-      echo "--- ls .next/standalone/.next ---";
-      ls -la .next/standalone/.next || true;
-      echo "";
-      echo "--- ls .next/static ---";
-      ls -la .next/static || true;
-      echo "";
-      echo "--- STARTING NODE SERVER ---";
-      node .next/standalone/server.js
-    '
+  runCommand: node .next/standalone/server.js
 
-# CRITICAL:
-# Disable output pruning so we can see exactly what files exist at runtime.
-# This avoids Firebase deleting .next/standalone/server.js.
 outputFiles:
   serverApp:
     include:
-      - .
