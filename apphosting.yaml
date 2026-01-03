@@ -2,6 +2,7 @@
 # See https://firebase.google.com/docs/app-hosting/configure#cloud-run
 runConfig:
   minInstances: 0
+  maxInstances: 10
   # maxInstances: 100
   # concurrency: 80
   # cpu: 1
@@ -21,11 +22,6 @@ runConfig:
   # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
   # - variable: MY_SECRET
   #   secret: mySecretRef
-
-runConfig:
-  # optional, but can help during debugging
-  minInstances: 0
-  maxInstances: 10
 
 env:
   - variable: NEXT_PUBLIC_HASHNODE_GQL_ENDPOINT
